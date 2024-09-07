@@ -17,7 +17,7 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "user", uniqueConstraints = { @UniqueConstraint(columnNames = { "document" }) })
+@Table(name = "user_tb", uniqueConstraints = { @UniqueConstraint(columnNames = { "document" }) })
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class User {
 
