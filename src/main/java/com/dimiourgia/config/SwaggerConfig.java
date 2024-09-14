@@ -29,7 +29,7 @@ public class SwaggerConfig {
         List<Server> servers = new ArrayList<>();
         servers.add(new Server().url("http://localhost:8080").description("User API via Gateway"));
         return new OpenAPI().info(new Info()
-                .title("MS Usuarios")
+                .title("Ms User")
                 .version("API"))
                 .components(new Components().addSecuritySchemes("bearerAuth", new SecurityScheme()
                         .type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))

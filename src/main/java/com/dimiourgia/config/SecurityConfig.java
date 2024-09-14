@@ -53,7 +53,6 @@ public class SecurityConfig {
             "/dimiourgia/swagger-resources/**",
             "/dimiourgia/swagger-resources",
     };
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
             AuthenticationManager authenticationManager) throws Exception {
@@ -63,8 +62,8 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .maximumSessions(1))
                 .authorizeHttpRequests(h -> h
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/dimiourgia/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/dimiourgia/api/user/register").permitAll()
                         .requestMatchers(SWAGGER_WHITELIST).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
