@@ -8,7 +8,7 @@ spring:
     password: admin
     driver-class-name: org.postgresql.Driver
   application:
-    name: dimiourgia-ms
+    name: dimiourgia
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -22,3 +22,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+springdoc:
+    api-docs:
+        path: /dimiourgia/v3/api-docs
+    swagger-ui:
+        path: /dimiourgia/swagger-ui.html

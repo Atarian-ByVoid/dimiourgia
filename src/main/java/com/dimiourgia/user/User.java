@@ -1,6 +1,8 @@
 package com.dimiourgia.user;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import com.dimiourgia.user.UserEnum.Gender;
 import com.dimiourgia.user.UserEnum.MaritalStatus;
@@ -14,11 +16,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "user_tb", uniqueConstraints = { @UniqueConstraint(columnNames = { "document" }) })
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@Data
 public class User {
 
     @Id
@@ -59,4 +63,14 @@ public class User {
     @Column(length = 15, nullable = false)
     private String phone;
 
+    @Column(nullable = false)
+    private String password;
+
+    private boolean disabled;
+
+    public void encryptPassword() {
+        if (password != null) {
+            this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
+        }
+    }
 }
