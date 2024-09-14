@@ -28,11 +28,22 @@ public class SwaggerConfig {
     OpenAPI customOpenAPI() {
         List<Server> servers = new ArrayList<>();
         servers.add(new Server().url("http://localhost:8080").description("User API via Gateway"));
-        return new OpenAPI().info(new Info()
-                .title("Ms User")
-                .version("API"))
-                .components(new Components().addSecuritySchemes("bearerAuth", new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
+
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Ms User")
+                        .version("API"))
+                .components(new Components()
+                        .addSecuritySchemes("bearerAuth", new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT"))
+                        .addSecuritySchemes("basicAuth", new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("basic")))
+                .security(List.of(new io.swagger.v3.oas.models.security.SecurityRequirement()
+                        .addList("bearerAuth")
+                        .addList("basicAuth")))
                 .servers(servers);
     }
 }
