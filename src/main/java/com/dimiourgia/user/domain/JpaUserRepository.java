@@ -39,4 +39,13 @@ public class JpaUserRepository implements UserInterfaceRepository {
         return userRepository.save(user);
     }
 
+    @Override
+    public User findByDocument(String userDocument) {
+        User user = userRepository.findByDocument(
+                userDocument)
+                .orElseThrow(() -> new MsErrorException(HttpStatus.NOT_FOUND,
+                        "User not found for this document.", "Not Found"));
+        return user;
+    }
+
 }

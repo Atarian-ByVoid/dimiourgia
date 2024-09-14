@@ -14,4 +14,6 @@ public interface UserInterfaceRepository {
 
     User save(User user);
 
+    User findByDocument(String userDocument);
+
 }

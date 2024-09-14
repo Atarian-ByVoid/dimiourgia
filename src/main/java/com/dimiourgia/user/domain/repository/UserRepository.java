@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     Optional<User> findByDocumentAndEmail(String document, String email);
 
+    Optional<User> findByDocument(String userDocument);
+
 }

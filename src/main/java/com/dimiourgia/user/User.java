@@ -1,17 +1,23 @@
 package com.dimiourgia.user;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import com.dimiourgia.abstracts.AbstractEntity;
+import com.dimiourgia.integration.Integration;
 import com.dimiourgia.user.UserEnum.Gender;
 import com.dimiourgia.user.UserEnum.MaritalStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -23,7 +29,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "user_tb", uniqueConstraints = { @UniqueConstraint(columnNames = { "document" }) })
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @Data
-public class User {
+public class User extends AbstractEntity {
 
     @Id
     @EqualsAndHashCode.Include
@@ -67,6 +73,9 @@ public class User {
     private String password;
 
     private boolean disabled;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Integration> integrationKeys = new HashSet<>();
 
     public void encryptPassword() {
         if (password != null) {
